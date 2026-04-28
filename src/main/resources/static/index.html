@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Student Management System</h1>
+
+        <div class="form-box">
+            <input type="text" id="name" placeholder="Enter Student Name">
+            <input type="email" id="email" placeholder="Enter Email">
+            <input type="text" id="department" placeholder="Enter Department">
+            <input type="number" id="marks" placeholder="Enter Marks">
+            <input type="number" id="age" placeholder="Enter Age">
+
+            <button onclick="addStudent()">Add Student</button>
+        </div>
+
+        <h2>Student List</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Marks</th>
+                    <th>Age</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable"></tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

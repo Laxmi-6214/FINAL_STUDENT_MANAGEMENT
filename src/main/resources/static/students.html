@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Students</title>
+</head>
+<body>
+
+<h2>All Students</h2>
+
+<ul id="studentList"></ul>
+
+<br>
+<a href="index.html">Add New Student</a>
+
+<script>
+function loadStudents() {
+    fetch("http://localhost:8081/students")
+        .then(res => res.json())
+        .then(data => {
+            let list = document.getElementById("studentList");
+            list.innerHTML = "";
+
+            data.forEach(s => {
+                let li = document.createElement("li");
+
+                li.innerHTML = s.id + ". " + s.name + " - " + s.email + " - " + s.department + " - Age: " + s.age +
+                " <button onclick='deleteStudent(" + s.id + ")'>Delete</button>" +
+                " <button onclick='editStudent(" + s.id + ", \"" + s.name + "\", \"" + s.email + "\", \"" + s.department + "\", " + s.age + ")'>Edit</button>";
+                list.appendChild(li);
+            });
+        });
+}
+
+function deleteStudent(id) {
+    fetch("http://localhost:8081/students/" + id, {
+        method: "DELETE"
+    }).then(() => {
+        loadStudents();
+    });
+}
+
+function editStudent(id, name, email, dept, age) {
+    let newName = prompt("Enter Name", name);
+    let newEmail = prompt("Enter Email", email);
+    let newDept = prompt("Enter Department", dept);
+    let newAge = prompt("Enter Age", age);
+
+    let updatedData = {
+        name: newName,
+        email: newEmail,
+        department: newDept,
+        age: newAge
+    };
+
+    fetch("http://localhost:8081/students/" + id, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedData)
+    }).then(() => {
+        loadStudents();
+    });
+}
+
+loadStudents();
+</script>
+
+</body>
+</html>
